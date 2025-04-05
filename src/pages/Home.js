@@ -8,9 +8,10 @@ const Home = () => {
   const [fetchError, setFetchError] = useState(null)
   const [smoothies,setSmoothies] = useState(null)
 
-  const handleDelete = (id)=>{
-    setSmoothies(previousSmoothies =>{
-      return previousSmoothies.filter(sm=>sm.id !==id)
+  const handleDelete = (id) => {
+    setSmoothies(prev => {
+      if (!prev) return []
+      return prev.filter(sm => sm.id !== id)
     })
   }
 

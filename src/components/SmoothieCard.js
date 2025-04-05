@@ -4,17 +4,20 @@ import supabase from "../config/supabaseClient"
 const SmoothieCard = ({smoothie , onDelete}) =>{
     
     const handleDelete = async () => {
+        console.log(" Delete clicked for ID:", smoothie.id)
+      
         const { data, error } = await supabase
           .from('smoothies')
-          .delete()
+          .delete({ returning: 'representation' }) 
           .eq('id', smoothie.id)
       
         if (error) {
-          console.log("Delete error:", error)
+          console.log("Delete error:", error.message)
         }
-        if (data) {
-          console.log("Deleted successfully:", data)
-          onDelete(smoothie.id) // 🟢 Make sure this fires
+      
+        if (!data) {
+          console.log("Deleted from Supabase:", data)
+          onDelete(smoothie.id) 
         }
       }
 
@@ -28,6 +31,7 @@ const SmoothieCard = ({smoothie , onDelete}) =>{
                    <i className="material-icons">edit</i>
                 </Link>
                 <i className="material-icons" onClick={handleDelete}>delete</i>
+             
                 {/*material-icons is a library of react that replaces keywords like edit, delete with actual icons, baad me dekhna if this can be customized or not*/}
             </div>
         </div>
