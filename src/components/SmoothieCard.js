@@ -1,21 +1,22 @@
 import {Link} from 'react-router-dom'
+import supabase from "../config/supabaseClient"
 
 const SmoothieCard = ({smoothie , onDelete}) =>{
     
-    const handleDelete = async()=>{
-        const{data,error}= await supabase 
+    const handleDelete = async () => {
+        const { data, error } = await supabase
           .from('smoothies')
           .delete()
-          .eq('id',smoothie.id)
-
+          .eq('id', smoothie.id)
+      
         if (error) {
-            console.log(error)
+          console.log("Delete error:", error)
         }
-        if (data){
-            console.log(data)
-            onDelete(smoothie.id)
+        if (data) {
+          console.log("Deleted successfully:", data)
+          onDelete(smoothie.id) // 🟢 Make sure this fires
         }
-    }
+      }
 
     return (
         <div className="smoothie-card">
