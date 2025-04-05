@@ -8,6 +8,12 @@ const Home = () => {
   const [fetchError, setFetchError] = useState(null)
   const [smoothies,setSmoothies] = useState(null)
 
+  const handleDelete = (id)=>{
+    setSmoothies(previousSmoothies =>{
+      return previousSmoothies.filter(sm=>sm.id !==id)
+    })
+  }
+
   useEffect(()=>{
     const fetchSmoothies = async() =>{
       //table name == smoothies
